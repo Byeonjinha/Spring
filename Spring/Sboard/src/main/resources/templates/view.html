@@ -51,7 +51,7 @@
                 <h3>댓글목록</h3>
                 <article th:each="comment, i:${comments}" class="comment">
                     <span>
-                        <span>[[${comment.uid}]]</span>
+                        <span>[[${comment.nick}]]</span>
                         <span>[[${comment.rdate.substring(2, 10)}]]</span>
                     </span>
                     <textarea name="comment" readonly>[[${comment.content}]]</textarea>

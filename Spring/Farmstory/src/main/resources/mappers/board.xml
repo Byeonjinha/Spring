@@ -95,6 +95,11 @@
 	<update id="updateHit">
 	UPDATE `Jboard_article` SET `hit`=`hit`+1 WHERE `seq`=#{seq};
 	</update>
+	<update id="updateComment">
+		UPDATE `Jboard_article` SET
+		`content`=#{content}
+		 WHERE `seq`=#{seq};</update>
+	
 	<update id="updateCommentCountPlus">
 	UPDATE `Jboard_article` SET `comment`=`comment`+1 WHERE `seq`=#{seq};
 	</update>

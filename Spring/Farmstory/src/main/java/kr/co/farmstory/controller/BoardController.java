@@ -151,7 +151,13 @@ public class BoardController {
 		
 		return "redirect:/board/view?group="+group+"&cate="+cate+"&seq="+seq;
 	}
-	
+	@GetMapping("/modifyComment")
+	public String modifyComment(HttpServletRequest req, String content ,String group,String cate,int seq, int parent) {
+
+		service.updateComment(content);
+		service.updateCommentCountPlus(seq);
+		return "redirect:/board/view?group="+group+"&cate="+cate+"&seq="+parent;
+	}
 	
 	
 	@GetMapping("/delete")

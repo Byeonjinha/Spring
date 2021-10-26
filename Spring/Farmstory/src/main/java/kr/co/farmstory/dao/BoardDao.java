@@ -27,6 +27,7 @@ public interface BoardDao {
 	public int updateArticle(ArticleVo vo);
 	public void updateFileDownload(int fseq);
 	public void updateHit(int seq);
+	public void updateComment(String content);
 	public void updateCommentCountPlus(int seq);
 	public void updateCommentCountMinus(int seq);
 	

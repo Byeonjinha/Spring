@@ -71,12 +71,17 @@ public class BoardService {
 	public void updateHit(int seq) {
 		dao.updateHit(seq);
 	}
+	public void updateComment(String content) {
+		dao.updateComment(content);
+	}
 	public void updateCommentCountPlus(int seq) {
 		dao.updateCommentCountPlus(seq);
 	}
 	public void updateCommentCountMinus(int seq) {
 		dao.updateCommentCountMinus(seq);
 	}
+	
+	
 	public void deleteArticle(int seq) {
 		dao.deleteArticle(seq);
 	}
