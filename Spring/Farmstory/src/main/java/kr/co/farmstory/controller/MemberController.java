@@ -19,37 +19,54 @@ import kr.co.farmstory.vo.TermsVo;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired
 	private MemberService service;
-	
+		
 	@GetMapping("/member/login")
 	public String login() {
+
 		return "/member/login";
 	}
 	
 	@PostMapping("/member/login")
 	public String login(HttpSession sess, String uid, String pass) {
-		
-		MemberVo vo = service.selectMember(uid, pass);
-		
-		if(vo == null) {
-			// 회원이 아닐 경우
-			return "redirect:/member/login?success=100";
-		}else {
-			// 회원이 맞을 경우
-			sess.setAttribute("sessMember", vo);
-			return "redirect:/index";
-		}
+	  
+	  MemberVo vo = service.selectMember(uid, pass); // if문에서 사용 할거이기 때문에 MemberVo에 담아준다
+
+	  if(vo == null) {
+		  // 회원이 아닐경우
+		  return "redirect:/member/login?success=100";
+	  }else {
+		  // 회원이 맞을경우
+		  sess.setAttribute("sessMember", vo);
+		  return "redirect:/index"; 
+	  }
 	}
 	
 	@GetMapping("/member/logout")
 	public String logout(HttpSession sess) {
-		// 현재 사용자 정보객체 세션삭제
+		// 단순 자료를 지우는 것이기 때문에 post보단 get이 어울린다
+		// 현재 사용자 정보객체 세션 삭제
 		sess.invalidate();
-		return "redirect:/member/login?success=102";
+		return "redirect:/member/login?success=101";
 	}
 	
+	@GetMapping("/member/register")
+	public String register() {
+		return "/member/register";
+	}
+	
+	@PostMapping("/member/register")
+	public String regisetr(MemberVo vo, HttpServletRequest req) {
+
+		String regip = req.getRemoteAddr();
+		vo.setRegip(regip);
+		service.insertMember(vo);
+
+		return "redirect:/member/login";
+	}
+
 	@GetMapping("/member/terms")
 	public String terms(Model model) {
 		
@@ -59,40 +76,26 @@ public class MemberController {
 		return "/member/terms";
 	}
 	
-	@GetMapping("/member/register")
-	public String register() {
-		return "/member/register";
-	}
-	
-	@PostMapping("/member/register")
-	public String register(MemberVo vo, HttpServletRequest req) {
-		
-		String regip = req.getRemoteAddr();
-		vo.setRegip(regip);
-		
-		service.insertMember(vo);
-		
-		return "redirect:/member/login?success=101";
-	}
-	
-	@ResponseBody /* 자바객체를 HTTP요청의 바디내용으로 매핑하여 클라이언트로 전송 */
-	@GetMapping("/member/checkUid")
+	@ResponseBody
+	@GetMapping("member/checkUid")
 	public String checkUid(String uid) {
-		//System.out.println("uid : "+uid);
+		
+		//System.out.println("uid : " +uid);
+		
 		int result = service.selectCountUid(uid);
 		
-		// Json 객체 생성 후 클라이언트 전송
+		//Gson라이브러리로 json생성
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
 		return new Gson().toJson(json);
 	}
-
-	
 	
 	@ResponseBody
-	@GetMapping("/member/checkNick")
+	@GetMapping("member/checkNick")
 	public String checkNick(String nick) {
-		int result = service.selectCountNick(nick);
+		
+		int result =service.selectCountNick(nick);
+		
 		// Json 객체 생성 후 클라이언트 전송
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
@@ -100,28 +103,25 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/member/checkEmail")
+	@GetMapping("member/checkEmail")
 	public String checkEmail(String email) {
-		int result = service.selectCountEmail(email);
+		int result =service.selectCountEmail(email);
+		
 		// Json 객체 생성 후 클라이언트 전송
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
 		return new Gson().toJson(json);
 	}
-	
 	
 	@ResponseBody
-	@GetMapping("/member/checkHp")
+	@GetMapping("member/checkHp")
 	public String checkHp(String hp) {
-		int result = service.selectCountHp(hp);
+		int result =service.selectCountHp(hp);
+		
 		// Json 객체 생성 후 클라이언트 전송
 		JsonObject json = new JsonObject();
 		json.addProperty("result", result);
 		return new Gson().toJson(json);
 	}
-	
-	
-	
-	
 	
 }

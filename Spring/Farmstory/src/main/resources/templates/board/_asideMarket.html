@@ -5,16 +5,16 @@
             <img th:src="@{/img/sub_aside_cate2_tit.png}" alt="장보기"/>
 
             <ul class="lnb">
-           		
-                <li th:classappend="${cate}=='market' ? on"><a th:href="@{/board/list(group=Market,cate=market)}">장보기</a></li>
+                <li th:classappend="on"><a th:href="@{/board/list}">장보기</a></li>
             </ul>
 
         </aside>
         <article>
             <nav>
-                <img th:src="@{/img/sub_nav_tit_cate2_tit1.png}" alt="장보기"/>
+                <img th:src="@{/img/sub_nav_tit_cate2_{cate}.png(cate=${cate})}" alt="장보기"/>
                 <p>
-                    HOME > 장보기 > <em>장보기</em>
+                    HOME > 장보기 > 
+                    <em th:if="${cate}=='market'">장보기</em>
                 </p>
             </nav>
 

@@ -11,27 +11,36 @@ import kr.co.farmstory.vo.FileVo;
 public interface BoardDao {
 	
 	public int insertArticle(ArticleVo vo);
-	public int insertComment(ArticleVo vo);
 	
 	public void insertFile(FileVo vo);
 	
-	public ArticleVo selectArticle(int seq);
-	public ArticleVo selectComment(int seq);
-	public List<ArticleVo> selectArticles(int start , String cate);
-	public List<ArticleVo> selectComments(int start);
+	public void insertComment(ArticleVo vo);
 	
-	public int selectCountTotal(String cate);
+	public ArticleVo selectArticle(int seq);
+	
+	public List<ArticleVo> selectArticles(String cate, int start);
+	
+	public List<ArticleVo> selectComments(int seq);
+	
+	public ArticleVo selectComment(int seq);
+	
 	public FileVo selectFile(int fseq);
 	
+	public int selectCountTotal (String cate);
 	
-	public int updateArticle(ArticleVo vo);
+	public void updateArticle(ArticleVo vo);
+	
 	public void updateFileDownload(int fseq);
-	public void updateHit(int seq);
-	public void updateComment(String content);
-	public void updateCommentCountPlus(int seq);
-	public void updateCommentCountMinus(int seq);
 	
+	public void updateComment(int seq);
 	
 	public void deleteArticle(int seq);
 	
+	public void deleteComment(int seq);
+	
+	public int completeComment(int seq, String content);
+
+	
+
+
 }
