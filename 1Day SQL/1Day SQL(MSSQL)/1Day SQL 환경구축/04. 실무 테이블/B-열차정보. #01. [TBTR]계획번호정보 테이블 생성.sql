@@ -1,0 +1,13 @@
+
+CREATE TABLE TBTR_PLN
+(
+  PLN_NO             CHAR(8)               NOT NULL,
+  PLN_MEM            VARCHAR(100)          NOT NULL,
+  PLN_ST_DT          CHAR(8)               NOT NULL,
+  PLN_CLS_DT         CHAR(8)               NOT NULL,
+  PLN_STT_CD         CHAR(2)               NOT NULL,
+  PLN_CHG_DTTM       CHAR(14)
+);
+
+CREATE UNIQUE INDEX IDX_TBTR_PLN ON TBTR_PLN (PLN_NO);
+ALTER TABLE TBTR_PLN ADD CONSTRAINT PK_TBTR_PLN PRIMARY KEY (PLN_NO);

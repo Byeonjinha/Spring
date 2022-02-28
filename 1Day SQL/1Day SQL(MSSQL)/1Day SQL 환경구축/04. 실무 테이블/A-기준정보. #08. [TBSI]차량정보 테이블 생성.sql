@@ -1,0 +1,13 @@
+
+CREATE TABLE TBSI_CAR
+(
+  CAR_CD            CHAR(5)                NOT NULL,
+  CAR_NM            VARCHAR(40)            NOT NULL,
+  CAR_DV_CD         CHAR(1)                NOT NULL,
+  SEAT_CNT          INT                    NOT NULL,
+  FX_SEAT_FLG       CHAR(1),
+  PSRM_LVL_CD       CHAR(2)
+);
+
+CREATE UNIQUE INDEX IDX_TBSI_CAR ON TBSI_CAR (CAR_CD);
+ALTER TABLE TBSI_CAR ADD CONSTRAINT PK_TBSI_CAR PRIMARY KEY (CAR_CD);

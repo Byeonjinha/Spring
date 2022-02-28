@@ -30,6 +30,7 @@ public interface BoardDao {
 	
 	public void updateArticle(ArticleVo vo);
 	
+	
 	public void updateFileDownload(int fseq);
 	
 	public void updateComment(int seq);
@@ -38,7 +39,7 @@ public interface BoardDao {
 	
 	public void deleteComment(int seq);
 	
-	public int completeComment(int seq, String content);
+	public int completeComment(ArticleVo vo);
 
 	
 

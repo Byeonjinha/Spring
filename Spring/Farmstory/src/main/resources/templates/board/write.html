@@ -7,8 +7,8 @@
 </head>
 <body>
     <div id="wrapper">
-    	<th:block th:include="/_header.html"></th:block>
-    	<th:block th:include="@{/board/_aside__${group}__.html}"></th:block>
+    	<th:block th:include="_header.html"></th:block>
+    	<th:block th:include="@{board/_aside__${group}__.html}"></th:block>
         <section id="board" class="write">
             <h3>글쓰기</h3>
                 <form th:action="@{/board/write(group=${group},cate=${cate})}" method="post" enctype="multipart/form-data">
@@ -40,7 +40,7 @@
                 </article>
             </section>
         </div>
-    	<th:block th:include="/_footer.html"></th:block>
+    	<th:block th:include="_footer.html"></th:block>
     </div>
 </body>
 </html>

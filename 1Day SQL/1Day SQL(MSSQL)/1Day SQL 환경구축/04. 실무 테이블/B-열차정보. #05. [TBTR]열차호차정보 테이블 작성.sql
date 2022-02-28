@@ -1,0 +1,18 @@
+
+CREATE TABLE TBTR_TRN_SCAR
+(
+  PLN_NO            CHAR(8)                NOT NULL,
+  TRN_NO            CHAR(5)                NOT NULL,
+  DAY_CD            CHAR(1)                NOT NULL,
+  SEG_NO            INT                    NOT NULL,
+  SCAR_SQNO         INT                    NOT NULL,
+  SCAR_NO           INT                    NOT NULL,
+  CAR_CD            CHAR(5)                NOT NULL,
+  CAR_CHG_CD        CHAR(1)
+);
+
+CREATE UNIQUE INDEX IDX_TBTR_TRN_SCAR ON TBTR_TRN_SCAR (PLN_NO, TRN_NO, DAY_CD, SEG_NO, SCAR_SQNO);
+
+CREATE INDEX IDX1_TBTR_TRN_SCAR ON TBTR_TRN_SCAR (PLN_NO, TRN_NO, DAY_CD, SEG_NO, SCAR_SQNO, SCAR_NO, CAR_CD);
+
+ALTER TABLE TBTR_TRN_SCAR ADD CONSTRAINT PK_TBTR_TRN_SCAR PRIMARY KEY (PLN_NO, TRN_NO, DAY_CD, SEG_NO, SCAR_SQNO);

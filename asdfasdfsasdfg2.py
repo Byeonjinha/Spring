@@ -1,29 +1,21 @@
-def solution(drum):
-    count=0
-    for i in range(len(drum)):
-        location=0
-        star = 0
+def solution(n, recipes, orders):
+    fire = [0]*n
+    recipesdic={}
+    orderslist=[]
+    for i in recipes:
+        recipesdic[i.split(" ")[0]]=i.split(" ")[1]
+    print(recipesdic)
+    for i2 in orders:
+        orderslist.append([i2.split(" ")[0],i2.split(" ")[1]])
+    print(orderslist)
 
-        while True:
-            if drum[location][i] == '#':
-                location+=1
-                if location == len(drum):
-                    count+=1
-                    break
-            elif drum[location][i] == '>':
-                i+=1
-            elif drum[location][i] == '<':
-                i-=1
-            elif drum[location][i] == '*' and star == 0:
-                location+=1
-                star+=1
-                if location == len(drum):
-                    count+=1
-                    break
-            elif drum[location][i] == '*' and star ==1:
-                break;
 
-    answer= count
+
+    answer = 0
     return answer
-drum =["######",">#*###","####*#","#<#>>#",">#*#*<","######"]
-solution(drum)
+n = 2
+recipes = ["A 3","B 2"]
+orders = ["A 1","A 2","B 3","B 4"]
+result = 7
+
+solution(n, recipes, orders)

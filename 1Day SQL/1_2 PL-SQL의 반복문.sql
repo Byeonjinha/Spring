@@ -1,0 +1,8 @@
+FOR ROW_INFO IN CUR_PNT_INFO(p_year)
+	LOOP
+		DBMS_OUTPUT.PUT_LINE(ROW_INFO.YEAR || ',' ||
+			ROW_INFO.RANK || ',' || ROW_INFO.CUST_CD || ',' ||
+			TO_CHAR(ROW_INFO.POINT, '999,999,9999') || ',' ||
+			FN_DT_CNVDTFMT(ROW_INFO.LAST_PNT_DT));
+		n_tot_cnt := n_tot_cnt +1 ;
+	END LOOP;

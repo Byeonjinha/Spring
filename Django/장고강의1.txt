@@ -1,0 +1,43 @@
+플라스크, 피라미드는 작은 프레임워크
+장고는 엄청 큰 프레임 워크 -> 처음부터 많은 것들이 딸려옴 (관리자 페이지, 사용자 인증)
+보안관련기능, 패스워드바꾸기, 프로필 바꾸기, 이메일 백엔드(이메일 인증 기능) 커스터마이징 마져 쉬움.
+
+pipenv 파이썬을 위한 npm + package.json
+
+Package Installer for Python => pip
+ 
+brew  install pipenv  (Mac)
+pip install -- user pipenv
+\Users\JEDEE\OneDrive\바탕 화면\workspace\airbnb-clone
+환경변수 설정시 path 경로 정확하게 입력할것 (주의)
+C:\Users\JEDEE\AppData\Roaming\Python\Python310\Scripts
+특히 Roaming
+
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+[dev-packages]
+[packages]
+[requires]
+python_version = "3.10"
+
+pipenv install Django==2.2.5	
+pipenv install Django==3.2
+
+git remote remove origin  ->git remote 제거
+
+django-admin startproject mysite
+
+2-1볼차례
+startproject
+Linter Formatter 
+
+python manage.py runserver  서버실행 
+python manage.py migrate
+python manage.py createsuperuser
+django-admin startapp rooms
+
+
+python manage.py makemigrations
+	

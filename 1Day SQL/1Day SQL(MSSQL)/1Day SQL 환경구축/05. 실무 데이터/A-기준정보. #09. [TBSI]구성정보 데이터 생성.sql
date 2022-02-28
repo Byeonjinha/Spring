@@ -1,0 +1,15 @@
+BEGIN TRAN ins;
+DELETE FROM tbsi_mk;
+INSERT INTO tbsi_mk VALUES ('CT-11','도시형-일반','CT1','N','CT-11','','N');
+INSERT INTO tbsi_mk VALUES ('CT-12','도시형-일반(중련)','CT1','Y','CT-11','CT-11','N');
+INSERT INTO tbsi_mk VALUES ('CT-21','도시형-통근','CT1','N','CT-21','','N');
+INSERT INTO tbsi_mk VALUES ('CT-22','도시형-통근(중련)','CT1','Y','CT-21','CT-21','N');
+INSERT INTO tbsi_mk VALUES ('RT-11','고급형-일반','CT2','N','RT-11','','N');
+INSERT INTO tbsi_mk VALUES ('RT-12','고급형-일반(중련)','CT2','Y','RT-11','RT-11','N');
+INSERT INTO tbsi_mk VALUES ('RT-21','고급형-크루즈','CT2','N','RT-21','','N');
+INSERT INTO tbsi_mk VALUES ('RT-22','고급형-크루즈(중련)','CT2','Y','RT-21','RT-21','N');
+INSERT INTO tbsi_mk VALUES ('XT-11','고속-일반','XT1','N','XT-11','','Y');
+INSERT INTO tbsi_mk VALUES ('XT-12','고속-일반(중련)','XT1','Y','XT-11','XT-11','Y');
+INSERT INTO tbsi_mk VALUES ('XT-21','고속-미래','XT2','N','XT-21','','Y');
+INSERT INTO tbsi_mk VALUES ('XT-22','고속-미래(중련)','XT2','Y','XT-21','XT-21','Y');
+COMMIT TRAN ins;

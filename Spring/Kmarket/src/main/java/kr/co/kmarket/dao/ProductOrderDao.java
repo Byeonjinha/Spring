@@ -13,10 +13,10 @@ import kr.co.kmarket.vo.SearchVo;
 public interface ProductOrderDao {
 
 	public void insertOrder(ProductOrderVo vo);
-	public void insertOrderDetail(int orderId, int productCode);
+	public void insertOrderDetail(int orderId, int productCode, int count);
 	
+	public List<ProductOrderVo> selectOrders(int orderId);
 	public void selectOrder();
-	public void selectOrders();
-	public void updateOrder();
+	public int updateOrder(ProductOrderVo vo);
 	public void deleteOrder();
 }

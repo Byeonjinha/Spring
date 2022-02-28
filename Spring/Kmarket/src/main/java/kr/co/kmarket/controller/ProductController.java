@@ -1,6 +1,8 @@
 package kr.co.kmarket.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -113,7 +115,12 @@ public class ProductController {
 	}
 	
 	@GetMapping("/product/order")
-	public String order() {
+	public String order(int orderId, Model model) {
+		
+		List<ProductOrderVo> orderProducts = orderService.selectOrders(orderId);
+		model.addAttribute("orderProducts", orderProducts);
+		model.addAttribute("productOrderVo", orderProducts.get(0));
+		
 		return "/product/order";
 	}
 
@@ -131,19 +138,42 @@ public class ProductController {
 		int orderId = vo.getOrderId();
 		
 		// 주문번호 상품코드 입력하기
+		int i = 0;
+		int[] productCounts = vo.getProductCounts();
+		
 		for(int productCode : vo.getProductCodes()) {
-			orderService.insertOrderDetail(orderId, productCode);
+			orderService.insertOrderDetail(orderId, productCode, productCounts[i]);
+			i++;
 		}
 		
 		JsonObject json = new JsonObject();
-		json.addProperty("result", 1);
+		json.addProperty("orderId", orderId);
 		
 		return new Gson().toJson(json);
 	}
 	
 	@GetMapping("/product/order-complete")
-	public String orderComplete() {
+	public String orderComplete(Model model,int orderId) {
+		//System.out.println("get방식요청 : " + orderId);
+		List<ProductOrderVo> orderProducts = orderService.selectOrders(orderId);
+		model.addAttribute("orderProducts", orderProducts);
+		model.addAttribute("productOrderVo", orderProducts.get(0));
+
 		return "/product/order-complete";
+	}
+	
+	@ResponseBody
+	@PostMapping("/product/order-complete")
+	public Map<String, Integer> orderComplete(ProductOrderVo vo) {
+		System.out.println("결제방식 : " +vo.getPayment());
+		// 최종 주문 완료하기
+		int result = orderService.updateOrder(vo);
+		//System.out.println("post방식요청 : " + vo.getOrderId());
+		// Jackson 라이브러리가 자바 map 구조체를 Json 데이터로 변환
+		Map<String, Integer> map = new HashMap<>();
+		map.put("result", result);
+		
+		return map;
 	}
 	
 	@GetMapping("/product/search")
@@ -151,7 +181,8 @@ public class ProductController {
 		
 		List<ProductVo> products = service.selectProductSearch(vo);
 		model.addAttribute("products", products);
-		model.addAttribute("productCount", products.size());		
+		model.addAttribute("productCount", products.size());
+		// 원하는 아이템을 키워드로 찾기위하여 SearchVo vo에 keyword를 넣어 줌 
 		model.addAttribute("keyword", vo.getKeyword());
 		
 		return "/product/search";

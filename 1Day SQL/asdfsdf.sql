@@ -1,0 +1,1 @@
+ALTER TABLE aj_member MODIFY uid VARCHAR(64);

@@ -7,8 +7,9 @@
 </head>
 <body>
     <div id="wrapper">
-     <th:block th:include="@{/_header.html}"></th:block>
-     <th:block th:include="@{/board/_aside__${group}__.html}"></th:block>
+     <th:block th:include="@{_header.html}"></th:block>
+     <th:block th:include="@{board/_aside__${group}__.html}"></th:block>
+     <!-- 사이드 메뉴를 iclude하여서 불러오기 -->
         <section id="board" class="list">
             <h3>글목록</h3>
             <article>
@@ -32,20 +33,19 @@
             </article>
 
             <!-- 페이지 네비게이션 -->
-            <div class="paging">
-            
+             <div class="paging">
             	<th:block th:if="${groups[0] > 1}">
-                	<a th:href="@{/board/list(pg=${groups[0]-1})}" class="prev">이전</a>
+                	<a th:href="@{/board/list(group=${group},cate=${cate},pg=${groups[0]-1})}" class="prev">이전</a>
                 </th:block>
                 
-                <th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
-                	<a th:href="@{/board/list(group=${group},cate=${cate},pg=${num})}" th:class="${num == currentPage ? 'num current':'num '}">[[${num}]]</a>                                
+                <th:block th:if="${num}!=0" th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+                	<a th:href="@{/board/list(group=${group},cate=${cate},pg=${num})}" th:class="${num==currentPage?'num current':'num'}">[[${num}]]</a>
                 </th:block>
                 
                 <th:block th:if="${groups[1] < lastPageNum}">
-                	<a th:href="@{/board/list(pg=${groups[1]+1})}" class="next">다음</a>
+                	<a th:href="@{/board/list(group=${group},cate=${cate},pg=${groups[1]+1})}" class="next">다음</a>
                 </th:block>
-            </div>
+            </div>	
 
             <!-- 글쓰기 버튼 -->
             <a th:href="@{/board/write(group=${group},cate=${cate})}" class="btnWrite">글쓰기</a>
@@ -59,7 +59,7 @@
 
         </div>
    
-        <th:block th:include="/_footer.html"></th:block>
+        <th:block th:include="_footer.html"></th:block>
     </div>    
 </body>
 </html>

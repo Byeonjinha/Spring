@@ -1,0 +1,13 @@
+
+CREATE TABLE TBSI_SCAR
+(
+  MK_CD             CHAR(5)                NOT NULL,
+  SEG_NO            INT                    NOT NULL,
+  SCAR_SQNO         INT                    NOT NULL,
+  SCAR_NO           INT                    NOT NULL,
+  CAR_CD            CHAR(5)                NOT NULL
+);
+
+CREATE UNIQUE INDEX IDX_TBSI_SCAR ON TBSI_SCAR (MK_CD, SEG_NO, SCAR_SQNO);
+CREATE INDEX IDX1_TBSI_SCAR ON TBSI_SCAR (MK_CD, SEG_NO, SCAR_NO, CAR_CD);
+ALTER TABLE TBSI_SCAR ADD CONSTRAINT PK_TBSI_SCAR PRIMARY KEY (MK_CD, SEG_NO, SCAR_SQNO);

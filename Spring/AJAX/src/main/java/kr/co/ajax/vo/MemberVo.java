@@ -1,6 +1,5 @@
 package kr.co.ajax.vo;
 
-import kr.co.ajax.vo.MemberVo;
 import lombok.Data;
 
 @Data
@@ -16,5 +15,6 @@ public class MemberVo {
 	private String leaveDate;
 	private String rdate;
 	private String pass;
+	private int productCode;
 
 }

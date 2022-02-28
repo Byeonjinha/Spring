@@ -16,8 +16,11 @@ public class MemberService {
 	public void insertMember(MemberVo vo) {
 		dao.insertMember(vo);
 	}
-	public MemberVo selectMember(String uid, String pass) {
-		return dao.selectMember(uid, pass);
+	public void insertMember2(MemberVo vo) {
+		dao.insertMember2(vo);
+	}
+	public MemberVo selectMember(MemberVo vo) {
+		return dao.selectMember(vo);
 	}
 	
 	public MemberVo selectMember2(String email) {
@@ -30,11 +33,9 @@ public class MemberService {
 	public TermsVo selectTerms() {
 		return dao.selectTerms();
 	}
-	
-	///////////////////2021 11 25 변진하 email 유효성
+
 	public int selectCountEmail(String email) {
 		return dao.selectCountEmail(email);
 	}
-	///////////////////
 	
 }

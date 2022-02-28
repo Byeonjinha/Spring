@@ -1,0 +1,16 @@
+
+CREATE TABLE TBSI_LN_CONS
+(
+  LN_CD                  CHAR(3)           NOT NULL,
+  APL_ST_DT              CHAR(8)           NOT NULL,
+  APL_CLS_DT             CHAR(8)           NOT NULL,
+  STN_ORDR               INT               NOT NULL,
+  STN_CD                 CHAR(8)           NOT NULL,
+  STD_DRV_HM             CHAR(6),
+  STN_KM                 NUMERIC(4,1)      NOT NULL,
+  ACM_KM                 NUMERIC(5,1)      NOT NULL
+);
+
+CREATE UNIQUE INDEX IDX_TBSI_LN_CONS ON TBSI_LN_CONS (LN_CD, APL_ST_DT, STN_ORDR);
+CREATE INDEX IDX1_TBSI_LN_CONS ON TBSI_LN_CONS (LN_CD, APL_ST_DT, APL_CLS_DT, STN_ORDR);
+ALTER TABLE TBSI_LN_CONS ADD CONSTRAINT PK_TBSI_LN_CONS PRIMARY KEY (LN_CD, APL_ST_DT, STN_ORDR);

@@ -7,12 +7,12 @@
 </head>
 <body>
     <div id="wrapper">
-       <th:block th:include="/_header.html"></th:block>
-        <th:block th:include="@{/board/_aside__${group}__.html}"></th:block>
+       <th:block th:include="_header.html"></th:block>
+        <th:block th:include="@{board/_aside__${group}__.html}"></th:block>
+        <input type="hidden" name="uid"    th:value="${session.sessMember.uid}">
         <section id="board" class="modify">
             <h3>글수정</h3>
             <article>
-                <input type="hidden" name="seq" th:value="${articleVo.seq}"/>
                 <form th:action="@{/board/modify(group=${group},cate=${cate},seq=${articleVo.seq})}" method="post" enctype="multipart/form-data">
                     <table>
                         <tr>
@@ -37,7 +37,7 @@
                 </form>
             </article>
         </section>
-      <th:block th:include="/_footer.html"></th:block>
+      <th:block th:include="_footer.html"></th:block>
     </div>
 </body>
 </html>

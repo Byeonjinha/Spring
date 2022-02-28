@@ -1,0 +1,33 @@
+●UNIX SHELL 환경 변수 출력
+ printenv : 환경 변수의 값을 출력하는 명령어
+ env : 환경 변수 보기 및 변경
+ setenv : 환경 변수 추가 또는 업데이트
+예외 configenv : 파이썬에서 사용, json 등.. 활용
+
+(내)게 (공)(부)하라고 강요하지 말아요
+(제)가 (스)트레스 받(자)나요
+내용(content) ＞ 공통(common) ＞ 외부(external) ＞ 제어(control) ＞ 스템프(stamp) ＞ 자료(data)
+
+●응집도, 결합도, 독립성 관계
+결합도가 약하다 -> 응집이 강하다 -> 모듈 독립성이 향상
+
+●교착상태 발생 조건
+1.  Mutual exclusion 
+2.  Hold and wait 
+3.  Non-preemption 
+4.  Circular wait
+
+●적합 종류
+Worst fit (최악 적합) : 들어갈 수 있는 영역 중 자원 낭비가 제일 심한 영역에 들어가는 방법
+first fit ( 최초 적합 ) : 들어갈 수 있는 공간 중 가장 빠른 영역에 들어가는 것
+best fit (최적 적합) : 들어갈 수 있는 공간 중 가장 자원 낭비가 덜 한 영역에 들어가는 것
+
+●스크립트언어 종류
+자바스크립, VB 스크립, ASP, JSP, PHP, 파이썬, 쉘 스크립, Basic
+
+●C언어
+stdlib.h는 C 언어의 표준 라이브러리로, 문자열 변환, 사 난수 생성, 동적 메모리 관리 등의
+ 함수들을 포함하고 있다.
+strlen() 함수 → string.h 에 포함
+표준 입출력 라이브러리 → stdio.h 
+삼각 함수, 제곱근, 지수 등 수학적인 함수 → math.h에 내장

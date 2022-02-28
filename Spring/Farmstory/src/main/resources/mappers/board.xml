@@ -21,9 +21,10 @@
 				`rdate`=NOW();
 	</insert>
 	
+	<!-- 아래에서 cate값을 설정해주면 index페이지에서 최신글을 불러올때(최신글 로드시 그룹, 카테에 맞춰 불러오도록 설정 해둠 )
+	comment에 설정된 cate값이 cate를 지정해주어 최신글에 로드가 되어버린다. --> 
 	<insert id="insertComment">
 		INSERT INTO `Jboard_article` SET
-				`cate`=#{cate},
 				`parent`=#{parent},
 				`content`=#{content},
 				`uid`=#{uid},
@@ -96,7 +97,9 @@
 	<update id="updateComment">
 		UPDATE `Jboard_article` SET 
 		
-              `content`= #{content}
+              `content`= #{content},
+              `rdate`= NOW()
+              
         WHERE `seq` = #{seq};
 	</update>
 	
@@ -112,13 +115,8 @@
   		DELETE FROM `Jboard_article` WHERE `seq`=#{seq};
   	</delete>
   	
-  	<update id="completeComment">
-  		UPDATE `Jboard_article` SET
-  		
-  			`content`=#{content}
-  			
-  		WHERE
-  			`seq`=#{seq};
-  	</update>
+  	<update id="completeComment"> <!-- 오류가 날땐 항상 오타를 찾아 보자  -->
+        UPDATE `Jboard_article` SET `content` =#{content} WHERE `seq`=#{seq};
+     </update>
   	
 </mapper>

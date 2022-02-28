@@ -26,26 +26,43 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
-
+	
+	// 시현 2021.11.25 view에서 login갔다가 다시 view로 이동 위한 작업
 	@GetMapping("/member/login")
-	public String login() {
+	public String login(String productCode, String success, Model model) {
+		
+		model.addAttribute("productCode", productCode); 
+		model.addAttribute("success", success);
+		
 		return "/member/login";
 	}
-	////////변진하 로그인 2021/11/25 ////////////
+	// 시현 2021.11.25
+	
+	// 진하 2021.11.19 로그인 기능구현
 	@PostMapping("/member/login")
-	public String login(HttpSession sess, String uid, String pass) {
-		  MemberVo vo = service.selectMember(uid, pass);
-
-	  if(vo == null) {
-		  // 회원이 아닐경우
-		  return "redirect:/member/login?success=100";
-	  }else {
-		  // 회원이 맞을경우
-		  sess.setAttribute("sessMember", vo);
-		  return "redirect:/index"; 
-	  }
-	}
-	/////////////////////////////////////
+	public String login(HttpSession sess, MemberVo vo) {
+		
+		  MemberVo memberVo = service.selectMember(vo);
+		  
+		  if(memberVo != null) {// 회원이 맞을경우
+			
+			  sess.setAttribute("sessMember", memberVo);
+			  		  
+			  if(vo.getProductCode() > 0) {
+				  
+					return "redirect:/product/view?productCode="+vo.getProductCode();
+				}else {
+					return "redirect:/index";
+				}	
+			  
+		  }else {
+				// 회원이 아닐경우
+					return "redirect:/member/login?success=100";
+		  }
+	  	}
+	// 진하 2021.11.19
+	
+	
 	@GetMapping("/member/register")
 	public String register() {
 		return "/member/register";
@@ -55,11 +72,11 @@ public class MemberController {
 	public String register(MemberVo vo) {
 		
 		service.insertMember(vo);
-		
-		return "redirect:/index";
+		System.out.println(vo);
+		return "redirect:/member/login";
 	}
 	
-	
+	// 능한 2021.11.19 약관페이지 기능구현 
 	@GetMapping("/member/terms")
 	public String terms(Model model) {
 		
@@ -68,9 +85,9 @@ public class MemberController {
 		
 		return "/member/terms";
 	}
+	// 능한 2021.11.19
 	
-	////////////변진하 2021 11 25 이메일 벨리데이션///////////////
-	
+	// 진하 2021.11.22 유효성검사 기능 추가
 	@ResponseBody
 	@GetMapping("/member/checkEmail")
 	public String checkEmail(String email) {
@@ -80,28 +97,37 @@ public class MemberController {
 		json.addProperty("result", result);
 		return new Gson().toJson(json);
 	}
-	////////////////////////////////
-//////////////////변진하 2021 11 27 이메일 ajax //////////////////////
+	// 진하 2021.11.22 
+	
+	// 진하 2021.11.23 소셜로그인 기능 구현 
 	@PostMapping("/member/loginkakao")
 	public String loginkakao(HttpSession sess, HttpServletRequest req, MemberVo vo) {
 
 		String uid =  vo.getEmail();
-		System.out.println(uid+"uid");
 		String email = vo.getEmail();
 		String name = vo.getName();
 		int gender = vo.getGender();
 		String regip = req.getRemoteAddr();
 		vo.setIp(regip);
-		//service.insertMember(vo);
-		service.selectMember2(email);
-		sess.setAttribute("sessMember", vo);
-		return "redirect:/index"; 
+	  MemberVo vo2 = service.selectMember2(email);
+	  if(vo2 == null) {
+			service.insertMember2(vo);
+			service.selectMember2(email);
+			sess.setAttribute("sessMember", vo);
+			return "redirect:/index"; 
+	  }else {
+		  // 회원이 맞을경우
+		  sess.setAttribute("sessMember", vo2);
+		  return "redirect:/index"; 
+	  }
+		  
 	}
+	// 진하 2021.11.23
 	
 	@GetMapping("/member/logout")
 	public String logout(HttpSession sess) {
 		sess.invalidate();
 		return "redirect:/member/login?success=101";
 	}
-	
 }
+	

@@ -9,8 +9,8 @@ import kr.co.ajax.vo.TermsVo;
 public interface MemberDao {
 	
 	public void insertMember(MemberVo vo);
-	
-	public MemberVo selectMember(String uid, String pass);
+	public void insertMember2(MemberVo vo);
+	public MemberVo selectMember(MemberVo vo);
 	public MemberVo selectMember2(String email);
 	public void selectsMembers();
 	public void updateMember();

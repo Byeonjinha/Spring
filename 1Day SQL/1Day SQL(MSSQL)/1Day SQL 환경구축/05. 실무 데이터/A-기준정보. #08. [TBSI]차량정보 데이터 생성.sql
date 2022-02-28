@@ -1,0 +1,16 @@
+BEGIN TRAN ins;
+DELETE FROM tbsi_car;
+INSERT INTO tbsi_car VALUES ('B1012','침대차(12석)','P',12,'Y','21');
+INSERT INTO tbsi_car VALUES ('B1020','침대차(20석)','P',20,'Y','11');
+INSERT INTO tbsi_car VALUES ('C1052','도시형객차(52석)','P',52,'Y','01');
+INSERT INTO tbsi_car VALUES ('C1064','도시형객차(64석)','P',64,'Y','01');
+INSERT INTO tbsi_car VALUES ('C2032','고급형객차(32석)','P',32,'Y','02');
+INSERT INTO tbsi_car VALUES ('C2044','고급형객차(44석)','P',44,'Y','02');
+INSERT INTO tbsi_car VALUES ('EM100','전기동력차(도시형)','M',0,'N','00');
+INSERT INTO tbsi_car VALUES ('EM200','전기동력차(산간형)','M',0,'N','00');
+INSERT INTO tbsi_car VALUES ('EM300','전기동력차(고급형)','M',0,'N','00');
+INSERT INTO tbsi_car VALUES ('R1012','식당차(12석)','P',12,'Y','22');
+INSERT INTO tbsi_car VALUES ('R1020','식당차(20석)','P',20,'Y','12');
+INSERT INTO tbsi_car VALUES ('S1008','고급형스낵차','P',8,'Y','23');
+INSERT INTO tbsi_car VALUES ('S1012','일반형스낵차','P',12,'Y','13');
+COMMIT TRAN ins;

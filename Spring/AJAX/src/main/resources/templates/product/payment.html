@@ -2,25 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />     
-    <title>CreativeAJAX-Payment</title>
+    <title>AJAX-Payment</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://kit.fontawesome.com/20962f3e4b.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <script th:src="@{/js/jsscript.js}"></script>
     <script>
+    
         $(function(){
             
             $('.hidepayment').css({"display" : "none"});                // 보이지않게 지정
@@ -70,30 +62,56 @@
                 $('input[name=payment-method-naver]').prop('checked', false); 
                 $('input[name=payment-method-kakao]').prop('checked', false); 
                 });    
+                
 
-           
+                
+                $('button[class=orderBTN]').click(function(){
+               	var uid      = $('input[name=uid]').val();
+                var jsonData = {
+                		'uid' : uid,
+                }
+                	
+                	$.ajax({
+        				url: '/AJAX/product/completeOrder',
+        				type: 'post',
+        				traditional: true, 
+        				data: jsonData,
+        				dataType: 'json',
+        				success: function(data){
+        				},
+        		         complete : function() {
+
+                         	   $(function() {
+                         	      	alert("정상적으로 주문되었습니다.")
+                     			  $(location).attr('href',"/AJAX/index");
+                              });
+                          }  
+        			});
+          
+                });          
             });
 
 
     </script>
-
 </head>
 <body>
     <div id="payment-wrapper">
     	<th:block th:include="@{_header.html}"/>
         <main class = "payment">
-            <section class="payment-center" style="background-color: rgb(236, 239, 241);"   >                
+            <section class="payment-center" style="background-color: rgb(236, 239, 241);"   >   
+                        
                 <div class = "payment-center-header">
+                <input type=hidden name = uid th:value = "${session.sessMember.uid}">
                     <li>
-                    <a href="#"><i class="fa fa-check-square" aria-hidden="true"></i></a>
+                    <a><i class="fa fa-check-square" aria-hidden="true"></i></a>
                     <span>쇼핑백</span> 
                     </li>
                     <li>
-                    <a href="#"><i class="fa fa-check-square" aria-hidden="true"></i></a>
+                    <a ><i class="fa fa-check-square" aria-hidden="true"></i></a>
                     <span> 배송</span>
                     </li>
                     <li>
-                    <a href="#"><i class="fa fa-square" aria-hidden="true"></i></a>
+                    <a ><i class="fa fa-check-square" aria-hidden="true"></i></a>
                     <span> 결제</span>
                     <div>
                     </li>
@@ -136,39 +154,35 @@
                             
                     </div>
                     <div class = "rightcol">
-                        <div class = "rightpayment">
-                            <div class = "summary-products"><img src="../img/대표1_썸네일.jpg" ><p>(남성) 베이직 라운드 MTM 셔츠</p><span>169,000 원</span></div>
-                            <div class = "summary-products"><img src="../img/대표1_썸네일.jpg" ><p>(남성) 베이직 라운드 MTM 셔츠</p><span>169,000 원</span></div>
-                            <div class = "summary-products"><img src="../img/대표1_썸네일.jpg" ><p>(남성) 베이직 라운드 MTM 셔츠</p><span>169,000 원</span></div>
-                        </div>
-                        
+           
                         <div class = "rightpayment"> 
-                            <div>
-                                <li><span style="font-weight: bold;">7개 상품</span>    <span  style="font-weight: bold;">823,000 원</span></li>
-                                <li><span>배송비</span>    <span>0 원</span></li>
-                                <li><span>seasonoff</span>    <span>- 137,100 원</span></li>
-                                <li><span>부가세 포함</span>    <span>0 원</span></li>
-                                <li><span>총 결제금액</span>    <span>685,900 원</span></li>
+                               <div>
+                                <li><span style="font-weight: bold;">[[${productOrderVo.count}]]개 상품</span>    <span  style="font-weight: bold;">[[${#numbers.formatInteger(productOrderVo.price, 3, 'COMMA')}]] 원</span></li>
+                                <li><span>배송비</span>    <span>[[${productOrderVo.delivery}]]</span></li>
+                                <li><span>총 결제금액</span>    <span>[[${#numbers.formatInteger(productOrderVo.total, 3, 'COMMA')}]] 원</span></li>
                             </div>
                         </div>
                         <div class = "rightpayment">
-                            <div class = "address">
-                              
-                                <p class = address2>
+                            <div class = "payment-address">
+                                <p class = payment-address-detail th:if= "${productOrderVo.delivery} == 무료배송">
                                     <i class="fa fa-truck" aria-hidden="true"></i> 일반 배송
                                 </p>
-                                <p class = address2>
-                                    남성 변진하
+                       			<p class = payment-address-detail th:if= "${productOrderVo.delivery} != 무료배송">
+                                    <i class="fa fa-truck" aria-hidden="true"></i> 당일 배송
                                 </p>
-                                <p class = address2>
-                                    대구 동구 첨단로 7 (신서동, 신용보증기금본점)
-                                    304호
-                                    동구
+                                <p class = payment-address-name>
+                                    [[${productOrderVo.uName}]]
+                                </p>
+                                <p class = payment-address-redetail>
+                                   [[${productOrderVo.addr1}]]
+                                </p>
+                              	</p>
+                                     <p class = payment-address-redetail>
+                                   [[${productOrderVo.addr2}]]
                                 </p>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </section>
         </main>
